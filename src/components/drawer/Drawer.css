@@ -1,0 +1,103 @@
+.drawer-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.35);
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    z-index:999;
+
+}
+
+.drawer{
+
+    width:450px;
+
+    height:100%;
+
+    background:white;
+
+    display:flex;
+
+    flex-direction:column;
+
+    animation:slide .25s ease;
+
+    box-shadow: -18px 0 40px rgba(15, 76, 129, 0.12);
+
+}
+
+.drawer-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:25px;
+
+    border-bottom:1px solid #E5E7EB;
+
+}
+
+.drawer-header h2{
+
+    margin:0;
+
+    color:#0F4C81;
+
+}
+
+.drawer-header button{
+
+    border:none;
+
+    background:none;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+}
+
+.drawer-body{
+
+    padding:25px;
+
+    overflow:auto;
+
+    flex:1;
+
+}
+
+@keyframes slide{
+
+from{
+
+    transform:translateX(100%);
+
+}
+
+to{
+
+    transform:translateX(0);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.drawer{
+
+    width:100%;
+
+}
+
+}

@@ -1,0 +1,41 @@
+.import-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:20px;
+
+}
+
+.import-table th{
+
+    text-align:left;
+
+    background:#0F4C81;
+
+    color:white;
+
+    padding:12px;
+
+}
+
+.import-table td{
+
+    padding:12px;
+
+    border-bottom:1px solid #ececec;
+
+}
+
+.import-table tbody tr:nth-child(even){
+
+    background:#fafafa;
+
+}
+
+.import-table tbody tr:hover{
+
+    background:#f3f8ff;
+
+}

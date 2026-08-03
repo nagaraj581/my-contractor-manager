@@ -1,0 +1,123 @@
+.company-selector-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0F4C81 0%, #1a5ba0 100%);
+  padding: 20px;
+}
+
+.company-selector-card {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  max-width: 500px;
+  width: 100%;
+}
+
+.company-selector-card h1 {
+  font-size: 28px;
+  color: #0F4C81;
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+
+.company-selector-card p {
+  color: #666;
+  margin: 0 0 24px;
+  font-size: 14px;
+}
+
+.companies-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.company-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: left;
+}
+
+.company-option:hover {
+  border-color: #0F4C81;
+  background: #f9fafb;
+}
+
+.company-option.active {
+  border-color: #0F4C81;
+  background: #f0f4f8;
+}
+
+.company-option-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.company-option-icon {
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  background: #FFD54F;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.company-option-text h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #0F4C81;
+  font-weight: 600;
+}
+
+.company-option-text p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #999;
+}
+
+.checkmark {
+  color: #0F4C81;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.add-company-option {
+  width: 100%;
+  padding: 14px;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  background: white;
+  color: #0F4C81;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.add-company-option:hover {
+  border-color: #0F4C81;
+  background: #f9fafb;
+}
+
+.add-icon {
+  font-size: 18px;
+}

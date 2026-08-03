@@ -1,0 +1,42 @@
+.totals-card {
+    margin-top: 28px;
+    margin-left: auto;
+    width: min(100%, 360px);
+    padding: 20px 22px;
+    border-radius: 16px;
+    background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+    border: 1px solid #e5edf6;
+    box-shadow: 0 10px 24px rgba(15, 76, 129, 0.06);
+}
+
+.totals-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.totals-row span:last-child {
+    font-variant-numeric: tabular-nums;
+    color: var(--text-light);
+}
+
+.totals-row.bold {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--primary);
+    padding-top: 14px;
+}
+
+.totals-row.bold span:last-child {
+    color: var(--primary);
+}
+
+.totals-divider {
+    border: none;
+    border-top: 1px dashed #d5dee9;
+    margin: 6px 0 2px;
+}

@@ -1,0 +1,234 @@
+.dashboard-page {
+    display: grid;
+    gap: 24px;
+}
+
+.dashboard-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 28px 30px;
+    border-radius: 20px;
+    background:
+        radial-gradient(circle at top right, rgba(23, 105, 170, 0.22), transparent 40%),
+        linear-gradient(135deg, #0f4c81 0%, #1769aa 55%, #0b3a63 100%);
+    color: #fff;
+    box-shadow: 0 18px 40px rgba(15, 76, 129, 0.22);
+}
+
+.dashboard-eyebrow {
+    margin: 0 0 8px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.75;
+}
+
+.dashboard-hero h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.dashboard-subtitle {
+    margin: 8px 0 0;
+    opacity: 0.85;
+    font-size: 15px;
+}
+
+.dashboard-cta {
+    border: none;
+    background: #fff;
+    color: #0f4c81;
+    height: 48px;
+    padding: 0 22px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.dashboard-cta:hover {
+    transform: translateY(-1px);
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.dashboard-stat {
+    border: 1px solid #e8edf4;
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: left;
+    box-shadow: 0 8px 24px rgba(15, 76, 129, 0.05);
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.dashboard-stat:hover {
+    transform: translateY(-2px);
+    border-color: #c9daf0;
+}
+
+.dashboard-stat span {
+    display: block;
+    color: var(--text-light);
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.dashboard-stat strong {
+    color: var(--text);
+    font-size: 28px;
+}
+
+.dashboard-stat.accent {
+    cursor: default;
+    background: linear-gradient(180deg, #f7fbff, #ffffff);
+}
+
+.dashboard-stat.accent:hover {
+    transform: none;
+}
+
+.dashboard-panels {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 16px;
+}
+
+.dashboard-panel {
+    background: #fff;
+    border: 1px solid #e8edf4;
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 8px 24px rgba(15, 76, 129, 0.05);
+}
+
+.dashboard-panel h2 {
+    margin: 0 0 16px;
+    font-size: 16px;
+    color: var(--text);
+}
+
+.dashboard-actions {
+    display: grid;
+    gap: 10px;
+}
+
+.dashboard-actions button {
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.dashboard-actions button:hover {
+    background: #eef6ff;
+    border-color: #b9d4ef;
+    color: var(--primary);
+}
+
+.dashboard-glance {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+}
+
+.dashboard-glance li {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #eef2f7;
+}
+
+.dashboard-glance li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.dashboard-glance span {
+    color: var(--text-light);
+}
+
+.dashboard-glance strong {
+    color: var(--text);
+}
+
+.dashboard-empty-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+}
+
+.dashboard-empty-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    max-width: 520px;
+    text-align: center;
+}
+
+.dashboard-empty-card h1 {
+    margin: 0 0 12px;
+    color: var(--primary);
+    font-size: 28px;
+}
+
+.dashboard-empty-card p {
+    margin: 0 0 20px;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+.add-company-btn {
+    border: none;
+    background: var(--primary);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.add-company-btn:hover {
+    background: #0d3f6b;
+}
+
+@media (max-width: 1024px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dashboard-panels {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-hero h1 {
+        font-size: 26px;
+    }
+}

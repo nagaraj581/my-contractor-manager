@@ -1,0 +1,215 @@
+.login-page{
+    min-height:100vh;
+    display:grid;
+    grid-template-columns:1fr 520px;
+    background:#F4F7FB;
+}
+
+/* LEFT SIDE */
+
+.login-left{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+    linear-gradient(
+        135deg,
+        #0F4C81,
+        #1769AA
+    );
+
+    color:white;
+    padding:60px;
+}
+
+.brand{
+    max-width:500px;
+}
+
+.brand h1{
+    font-size:48px;
+    margin-bottom:20px;
+}
+
+.brand p{
+    font-size:20px;
+    line-height:1.7;
+    opacity:.95;
+}
+
+/* RIGHT SIDE */
+
+.login-right{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px;
+}
+
+.login-card{
+
+    width:100%;
+    max-width:420px;
+
+    background:white;
+
+    padding:45px;
+
+    border-radius:22px;
+
+    box-shadow:
+    0 20px 50px
+    rgba(0,0,0,.08);
+
+}
+
+.login-card h2{
+
+    color:#0F4C81;
+
+    margin-bottom:8px;
+
+}
+
+.subtitle{
+
+    color:#64748B;
+
+    margin-bottom:35px;
+
+}
+
+.login-card input{
+
+    width:100%;
+
+    padding:15px 18px;
+
+    margin-bottom:18px;
+
+    border:1px solid #CBD5E1;
+
+    border-radius:12px;
+
+    font-size:15px;
+
+    transition:.25s;
+
+}
+
+.login-card input:focus{
+
+    outline:none;
+
+    border-color:#0F4C81;
+
+    box-shadow:
+    0 0 0 4px
+    rgba(15,76,129,.12);
+
+}
+
+.login-card button{
+
+    width:100%;
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:15px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    background:#0F4C81;
+
+    color:white;
+
+    transition:.25s;
+
+}
+
+.login-card button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 10px 25px
+    rgba(15,76,129,.25);
+
+}
+
+.divider{
+
+    text-align:center;
+
+    margin:22px 0;
+
+    color:#94A3B8;
+
+}
+
+.google-btn{
+
+    background:white !important;
+
+    color:#334155 !important;
+
+    border:1px solid #CBD5E1 !important;
+
+}
+
+.footer{
+
+    margin-top:25px;
+
+    text-align:center;
+
+    color:#64748B;
+
+}
+
+.footer span{
+
+    color:#0F4C81;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.login-page{
+
+grid-template-columns:1fr;
+
+}
+
+.login-left{
+
+display:none;
+
+}
+
+.login-right{
+
+padding:25px;
+
+}
+
+.login-card{
+
+padding:30px;
+
+}
+
+}

@@ -1,0 +1,41 @@
+.company-page{
+
+    display:flex;
+
+    justify-content:center;
+
+    padding:40px;
+
+}
+
+.save-area{
+
+    margin-top:35px;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+}
+
+@media(max-width:768px){
+
+    .company-page{
+
+        padding:15px;
+
+    }
+
+    .save-area{
+
+        justify-content:stretch;
+
+    }
+
+    .save-area button{
+
+        width:100%;
+
+    }
+
+}
