@@ -11,19 +11,31 @@ from "../../components/quotation/QuotationSummaryCard";
 import TotalsCard from "../../components/quotation/TotalsCard";
 import { useCompanies } from "../../contexts/CompaniesContext";
 import { subscribeRateCards } from "../../services/rateCardService";
+import type { Quotation }
+from "../../models/Quotation";
 import {
     addQuotationItem,
     deleteQuotationItem,
     subscribeQuotationItems,
 } from "../../services/quotationItemService";
-import { updateQuotation } from "../../services/quotationService";
 import type { RateCard } from "../../models/RateCard";
+import {
+    updateQuotation,
+    subscribeQuotation,
+} from "../../services/quotationService";
 import type { QuotationItem } from "../../models/QuotationItem";
 import {
     DEFAULT_GST_PERCENT,
     computeQuotationTotals,
 } from "../../utils/quotationTotals";
 import "./QuotationDetailsPage.css";
+import { getCustomerById }
+from "../../services/customerService";
+
+import type { Customer }
+from "../../models/Customer";
+import { generateQuotationPdf }
+from "../../services/pdf/quotationPdfService";
 
 export default function QuotationDetailsPage() {
     const { id } = useParams();
@@ -32,6 +44,12 @@ export default function QuotationDetailsPage() {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [rateCards, setRateCards] = useState<RateCard[]>([]);
     const [items, setItems] = useState<QuotationItem[]>([]);
+    const [quotation, setQuotation] =
+    useState<Quotation | null>(null);
+    const [customer, setCustomer] =
+useState<Customer | null>(null);
+
+    
     
     
 
@@ -46,6 +64,29 @@ export default function QuotationDetailsPage() {
         return subscribeQuotationItems(id, setItems);
     }, [id]);
 
+    useEffect(() => {
+
+    if (!id) return;
+
+    return subscribeQuotation(
+
+        id,
+
+        setQuotation
+
+    );
+
+}, [id]);
+useEffect(() => {
+
+    if (!quotation?.customerId) return;
+
+    getCustomerById(
+        quotation.customerId
+    ).then(setCustomer);
+
+}, [quotation]);
+
     async function syncTotals(
         nextItems: Array<{ amount: number }>
     ) {
@@ -57,6 +98,54 @@ export default function QuotationDetailsPage() {
         );
     }
 
+    async function handleGeneratePdf() {
+
+    if (!currentCompany) {
+
+        alert("Company not loaded.");
+
+        return;
+
+    }
+
+    if (!quotation) {
+
+        alert("Quotation not loaded.");
+
+        return;
+
+    }
+
+    if (!customer) {
+
+        alert("Customer not loaded.");
+
+        return;
+
+    }
+
+    if (items.length === 0) {
+
+        alert("Add at least one item.");
+
+        return;
+
+    }
+
+    await generateQuotationPdf({
+
+        company: currentCompany,
+
+        quotation,
+
+        customer,
+
+        items,
+
+    });
+
+}
+
     return (
         <>
             <PageHeader
@@ -64,21 +153,47 @@ export default function QuotationDetailsPage() {
                 title="Quotation"
                 subtitle="Review and edit line items"
                 action={
-                    <PrimaryButton
-                        title="+ Add Item"
-                        onClick={() => setDrawerOpen(true)}
-                    />
-                }
+    <div
+        style={{
+            display: "flex",
+            gap: 10,
+        }}
+    >
+        <PrimaryButton
+            title="📄 Preview PDF"
+            onClick={handleGeneratePdf}
+        />
+
+        <PrimaryButton
+            title="+ Add Item"
+            onClick={() => setDrawerOpen(true)}
+        />
+    </div>
+}
             />
 
             <PageContainer>
                 <div className="quotation-details-section">
                     <QuotationSummaryCard
-                        quotationNo="AE-2026-00010"
-                        customerName="Harish Acharya"
-                        quotationDate="03-08-2026"
-                        status="Draft"
-                        siteAddress="Udupi"
+                        quotationNo={
+    quotation?.quotationNo ?? "-"
+}
+
+customerName={
+    customer?.name ?? "-"
+}
+
+quotationDate={
+    quotation?.quotationDate ?? "-"
+}
+
+status={
+    quotation?.status ?? "-"
+}
+
+siteAddress={
+    quotation?.siteAddress ?? "-"
+}
                         grandTotal={
                             items.reduce(
                                 (sum, item) => sum + item.amount,

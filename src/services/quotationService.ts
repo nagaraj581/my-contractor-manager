@@ -117,3 +117,24 @@ export function subscribeQuotations(
     );
   });
 }
+export function subscribeQuotation(
+  quotationId: string,
+  callback: (quotation: Quotation | null) => void
+) {
+  return onSnapshot(
+    doc(db, COLLECTION, quotationId),
+    snapshot => {
+
+      if (!snapshot.exists()) {
+        callback(null);
+        return;
+      }
+
+      callback({
+        id: snapshot.id,
+        ...snapshot.data(),
+      } as Quotation);
+
+    }
+  );
+}

@@ -1,6 +1,8 @@
 import {
   addDoc,
   collection,
+  doc,
+  getDoc,
   getDocs,
   onSnapshot,
   query,
@@ -63,4 +65,20 @@ export function subscribeCustomers(
 
   });
 
+}
+export async function getCustomerById(
+  customerId: string
+) {
+  const snapshot = await getDoc(
+    doc(db, "customers", customerId)
+  );
+
+  if (!snapshot.exists()) {
+    return null;
+  }
+
+  return {
+    id: snapshot.id,
+    ...snapshot.data(),
+  } as Customer;
 }
