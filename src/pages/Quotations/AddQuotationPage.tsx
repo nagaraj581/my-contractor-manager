@@ -264,20 +264,26 @@ export default function AddQuotationPage() {
           ) : (
             <>
               <QuotationItemsTable
-                items={items.map(item => ({
-                  id: item.localId,
-                  description: item.description,
-                  quantity: item.quantity,
-                  unit: item.unit,
-                  rate: item.rate,
-                  amount: item.amount,
-                }))}
-                onDelete={localId =>
-                  setItems(previous =>
-                    previous.filter(item => item.localId !== localId)
-                  )
-                }
-              />
+  items={items.map(item => ({
+    id: item.localId,
+    description: item.description,
+    quantity: item.quantity,
+    unit: item.unit,
+    rate: item.rate,
+    amount: item.amount,
+  }))}
+  // 👇 ADD THIS PROP to show the edit button
+  onEdit={(item) => {
+    console.log("Editing item:", item);
+    alert("Edit button clicked! We will need to open an edit modal here.");
+    // TODO: Set an 'editingItem' state and open an EditDrawer
+  }}
+  onDelete={localId =>
+    setItems(previous =>
+      previous.filter(item => item.localId !== localId)
+    )
+  }
+/>
               <TotalsCard
                 items={items}
                 gst={DEFAULT_GST_PERCENT}

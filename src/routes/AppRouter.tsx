@@ -1,7 +1,5 @@
-import { Navigate, Route, Routes } from "react-router-dom";
-
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-
 import ProtectedRoute from "./ProtectedRoute";
 
 import MainLayout from "../components/layout/MainLayout";
@@ -18,6 +16,8 @@ import RateCardPage from "../pages/RateCard/RateCardPage";
 import SettingsPage from "../pages/Settings/SettingsPage";
 import QuotationDetailsPage from "../pages/Quotations/QuotationDetailsPage";
 import AddQuotationPage from "../pages/Quotations/AddQuotationPage";
+import ProjectDetailsPage
+from "../pages/Projects/ProjectDetailsPage";
 export default function AppRouter() {
 
   const { loading } = useAuth();
@@ -94,6 +94,11 @@ export default function AppRouter() {
         />
 
         <Route
+          path="/projects/:id"
+          element={<ProjectDetailsPage />}
+        />
+
+        <Route
           path="/rate-card"
           element={<RateCardPage />}
         />
@@ -102,6 +107,7 @@ export default function AppRouter() {
           path="/settings"
           element={<SettingsPage />}
         />
+        
 
       </Route>
 

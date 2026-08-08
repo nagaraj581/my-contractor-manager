@@ -1,0 +1,47 @@
+.project-progress-card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:24px;
+
+    box-shadow:0 4px 16px rgba(0,0,0,.05);
+
+}
+
+.project-progress-card h3{
+
+    margin:0 0 18px;
+
+}
+
+.project-progress-bar{
+
+    height:18px;
+
+    background:#edf2fa;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+}
+
+.project-progress-value{
+
+    height:100%;
+
+    background:#2f74da;
+
+    transition:.35s;
+
+}
+
+.project-progress-text{
+
+    margin-top:12px;
+
+    font-weight:600;
+
+}

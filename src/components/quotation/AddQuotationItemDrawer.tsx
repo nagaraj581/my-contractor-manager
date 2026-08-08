@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import Drawer from "../drawer/Drawer";
 import PrimaryButton from "../buttons/PrimaryButton";
@@ -6,10 +6,12 @@ import TextField from "../inputs/TextField";
 
 import type { RateCard } from "../../models/RateCard";
 import "./AddQuotationItemDrawer.css";
+import type { QuotationItem } from "../../models/QuotationItem";
 
 interface Props {
     open: boolean;
     onClose: () => void;
+    editingItem?: QuotationItem | null;
     rateCards: RateCard[];
     existingRateCardIds?: string[];
     onAdd: (item: {
@@ -24,16 +26,37 @@ interface Props {
 }
 
 export default function AddQuotationItemDrawer({
+
     open,
     onClose,
+    editingItem,
     rateCards,
     existingRateCardIds = [],
     onAdd,
+
 }: Props) {
     const [search, setSearch] = useState("");
     const [selected, setSelected] = useState<RateCard | null>(null);
     const [qty, setQty] = useState("1");
     const [saving, setSaving] = useState(false);
+    
+    useEffect(() => {
+
+        if (!editingItem) return;
+    
+        const rateCard = rateCards.find(
+    
+            card => card.id === editingItem.rateCardId
+    
+        );
+    
+        if (!rateCard) return;
+    
+        setSelected(rateCard);
+    
+        setQty(String(editingItem.quantity));
+    
+    }, [editingItem, rateCards]);
 
     const existingIds = useMemo(
         () => new Set(existingRateCardIds),
@@ -58,7 +81,7 @@ export default function AddQuotationItemDrawer({
             return;
         }
 
-        if (existingIds.has(selected.id)) {
+        if (!editingItem && existingIds.has(selected.id)) {
             const addAnyway = window.confirm(
                 `"${selected.itemName}" is already added to this quotation.\n\nDo you still want to add it again?`
             );
@@ -89,14 +112,27 @@ export default function AddQuotationItemDrawer({
     }
 
     function handleClose() {
+
         setSelected(null);
+    
         setQty("1");
+    
         setSearch("");
+    
         onClose();
+    
     }
 
     return (
-        <Drawer open={open} title="Add Item" onClose={handleClose}>
+        <Drawer
+
+    open={open}
+
+    title={editingItem ? "Edit Item" : "Add Item"}
+
+    onClose={handleClose}
+
+>
             {!selected ? (
                 <div className="add-item-drawer">
                     <TextField
@@ -175,7 +211,8 @@ export default function AddQuotationItemDrawer({
                     </div>
 
                     <PrimaryButton
-                        title="Add Item"
+
+    title={editingItem ? "Update Item" : "Add Item"}
                         loading={saving}
                         onClick={handleAdd}
                         fullWidth

@@ -7,12 +7,16 @@ export interface Quotation {
   quotationNo: string;
 
   quotationDate: string;
+  convertedToProject?: boolean;
+
+projectId?: string;
 
   validityDays: number;
 
   siteAddress: string;
   reference: string;
   notes: string;
+
 
   subtotal: number;
   gstAmount: number;

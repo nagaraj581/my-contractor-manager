@@ -1,0 +1,25 @@
+.project-stats-card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:22px;
+
+    box-shadow:0 4px 16px rgba(0,0,0,.05);
+
+}
+
+.project-stats-card small{
+
+    color:#8a94a6;
+
+}
+
+.project-stats-card h2{
+
+    margin:10px 0 0;
+
+    color:#163d79;
+
+}

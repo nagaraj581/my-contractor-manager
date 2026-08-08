@@ -1,0 +1,33 @@
+.projects-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fill,minmax(320px,1fr));
+
+    gap:20px;
+
+}
+
+.project-card{
+
+    background:white;
+
+    border-radius:16px;
+
+    padding:20px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    box-shadow:
+    0 4px 16px rgba(0,0,0,.05);
+
+}
+
+.project-card:hover{
+
+    transform:translateY(-3px);
+
+}

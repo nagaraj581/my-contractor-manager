@@ -1,0 +1,47 @@
+.project-task-add{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-bottom:20px;
+
+}
+
+.project-task-add input{
+
+    flex:1;
+
+    padding:10px;
+
+}
+
+.project-task{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin:12px 0;
+
+}
+
+.project-task span{
+
+    flex:1;
+
+}
+
+.project-task button{
+
+    border:none;
+
+    background:none;
+
+    cursor:pointer;
+
+    color:#d33;
+
+}

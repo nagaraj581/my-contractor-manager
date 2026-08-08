@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import PageHeader from "../../components/page/PageHeader";
@@ -11,13 +11,11 @@ from "../../components/quotation/QuotationSummaryCard";
 import TotalsCard from "../../components/quotation/TotalsCard";
 import { useCompanies } from "../../contexts/CompaniesContext";
 import { subscribeRateCards } from "../../services/rateCardService";
-import type { Quotation }
-from "../../models/Quotation";
+import type { Quotation } from "../../models/Quotation";
 import {
     addQuotationItem,
     deleteQuotationItem,
-    subscribeQuotationItems,
-} from "../../services/quotationItemService";
+    subscribeQuotationItems, } from "../../services/quotationItemService";
 import type { RateCard } from "../../models/RateCard";
 import {
     updateQuotation,
@@ -36,12 +34,20 @@ import type { Customer }
 from "../../models/Customer";
 import { generateQuotationPdf }
 from "../../services/pdf/quotationPdfService";
+import {
+convertQuotationToProject,} from "../../services/projectService";
+import {
+    updateQuotationItem,
+} from "../../services/quotationItemService";
 
 export default function QuotationDetailsPage() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const { currentCompany } = useCompanies();
 
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const [editingItem, setEditingItem] =
+    useState<QuotationItem | null>(null);
     const [rateCards, setRateCards] = useState<RateCard[]>([]);
     const [items, setItems] = useState<QuotationItem[]>([]);
     const [quotation, setQuotation] =
@@ -98,6 +104,53 @@ useEffect(() => {
         );
     }
 
+    async function handleConvertToProject() {
+
+        if (quotation?.convertedToProject) {
+
+            alert("This quotation has already been converted to a project.");
+        
+            return;
+        
+        }
+        if (!quotation) return;
+
+    try {
+
+        await convertQuotationToProject({
+
+    id: quotation.id,
+
+    companyId: quotation.companyId,
+
+    quotationNo: quotation.quotationNo,
+
+    customerId: quotation.customerId,
+
+    customerName: customer?.name || "",
+
+    siteAddress: quotation.siteAddress,
+
+    grandTotal: quotation.grandTotal,
+
+});
+
+alert("Project created successfully.");
+
+navigate("/projects");
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert("Unable to convert quotation.");
+
+    }
+
+}
+
     async function handleGeneratePdf() {
 
     if (!currentCompany) {
@@ -152,24 +205,41 @@ useEffect(() => {
                 icon="📄"
                 title="Quotation"
                 subtitle="Review and edit line items"
+                
                 action={
-    <div
-        style={{
-            display: "flex",
-            gap: 10,
-        }}
-    >
-        <PrimaryButton
-            title="📄 Preview PDF"
-            onClick={handleGeneratePdf}
-        />
-
-        <PrimaryButton
-            title="+ Add Item"
-            onClick={() => setDrawerOpen(true)}
-        />
-    </div>
-}
+                    <div
+                        style={{
+                            display: "flex",
+                            gap: 10,
+                        }}
+                    >
+                        <PrimaryButton
+                            title="👁 Preview"
+                            onClick={handleGeneratePdf}
+                        />
+                
+                        {!quotation?.convertedToProject ? (
+                            <>
+                                <PrimaryButton
+                                    title="+ Add Item"
+                                    onClick={() => setDrawerOpen(true)}
+                                />
+                
+                                <PrimaryButton
+                                    title="🚀 Convert to Project"
+                                    onClick={handleConvertToProject}
+                                />
+                            </>
+                        ) : (
+                            <PrimaryButton
+                                title="📂 Open Project"
+                                onClick={() =>
+                                    navigate(`/projects/${quotation.projectId}`)
+                                }
+                            />
+                        )}
+                    </div>
+                }
             />
 
             <PageContainer>
@@ -224,20 +294,31 @@ siteAddress={
                         <>
                             
                             <QuotationItemsTable
-                                items={items}
-                                onDelete={async itemId => {
-                                    if (!id) return;
+    canDelete={!quotation?.convertedToProject}
+    items={items}
 
-                                    await deleteQuotationItem(id, itemId);
+    onEdit={item => {
 
-                                    const remaining = items.filter(
-                                        item => item.id !== itemId
-                                    );
+        setEditingItem(item as QuotationItem);
 
-                                    await syncTotals(remaining);
-                                }}
-                                
-                            />
+        setDrawerOpen(true);
+
+    }}
+
+    onDelete={async itemId => {
+
+        if (!id) return;
+
+        await deleteQuotationItem(id, itemId);
+
+        const remaining = items.filter(
+            item => item.id !== itemId
+        );
+
+        await syncTotals(remaining);
+
+    }}
+/>
                             
                             <TotalsCard
                                 items={items}
@@ -250,20 +331,71 @@ siteAddress={
             </PageContainer>
 
             <AddQuotationItemDrawer
-                open={drawerOpen}
-                onClose={() => setDrawerOpen(false)}
+                open={
+                    drawerOpen &&
+                    !quotation?.convertedToProject
+                }
+                editingItem={editingItem}
+                onClose={() => {
+
+    setDrawerOpen(false);
+
+    setEditingItem(null);
+
+}}
                 rateCards={rateCards}
                 existingRateCardIds={items.map(item => item.rateCardId)}
                 onAdd={async item => {
+
                     if (!id) return;
+                
+                    if (editingItem) {
+                
+                        await updateQuotationItem(
+                
+                            id,
+                
+                            editingItem.id,
+                
+                            item
+                
+                        );
+                        
+                
+                        const updated = items.map(i =>
+                
+                            i.id === editingItem.id
+                                ? {
+                                    ...i,
+                                    ...item,
+                                }
+                                : i
+                
+                        );
+                
+                        await syncTotals(updated);
+                        setDrawerOpen(false);
 
-                    await addQuotationItem(id, {
-                        quotationId: id,
-                        ...item,
-                        createdAt: new Date().toISOString(),
-                    });
-
-                    await syncTotals([...items, item]);
+setEditingItem(null);
+                
+                        setEditingItem(null);
+                
+                    } else {
+                
+                        await addQuotationItem(id,{
+                
+                            quotationId:id,
+                
+                            ...item,
+                
+                            createdAt:new Date().toISOString(),
+                
+                        });
+                
+                        await syncTotals([...items,item]);
+                
+                    }
+                
                 }}
             />
         </>

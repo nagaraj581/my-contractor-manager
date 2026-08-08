@@ -57,24 +57,29 @@
 }
 
 .item-action-btn {
-    width: 36px;
-    height: 36px;
+
+    padding: 8px 14px;
+
+    min-width: 72px;
+
+    height: auto;
+
     border: 1px solid #e2e8f0;
-    border-radius: 10px;
-    background: #fff;
+
+    border-radius: 8px;
+
+    background: white;
+
     cursor: pointer;
+
     margin-left: 8px;
-    transition: all .2s ease;
+
 }
 
-.item-action-btn:hover {
-    border-color: var(--primary);
-    background: #f0f7ff;
-}
+.delete-btn{
 
-.item-action-btn.danger:hover {
-    border-color: #fca5a5;
-    background: #fef2f2;
+    color:#dc2626;
+
 }
 
 .quotation-items-empty-inline {

@@ -13,6 +13,9 @@ import { db } from "../firebase/firebase";
 
 import type { QuotationItem } from "../models/QuotationItem";
 
+
+
+
 export async function addQuotationItem(
   quotationId: string,
   item: Omit<QuotationItem, "id">
@@ -31,29 +34,27 @@ export async function addQuotationItem(
 }
 
 export async function updateQuotationItem(
-
   quotationId: string,
-
   itemId: string,
-
-  values: Partial<QuotationItem>
-
+  data: {
+      description: string;
+      category: string;
+      unit: string;
+      quantity: number;
+      rate: number;
+      amount: number;
+  }
 ) {
-
   await updateDoc(
-
-    doc(
-      db,
-      "quotations",
-      quotationId,
-      "items",
-      itemId
-    ),
-
-    values
-
+      doc(
+          db,
+          "quotations",
+          quotationId,
+          "items",
+          itemId
+      ),
+      data
   );
-
 }
 
 export async function deleteQuotationItem(
